@@ -22,8 +22,13 @@ public class ServerAddressService {
         bookManager.setServerName("book-manager");
         bookManager.setServerUrl("http://127.0.0.1:38080");
 
+        ServerEntity crawManager = new ServerEntity();
+        crawManager.setServerName("craw-manager");
+        crawManager.setServerUrl("http://127.0.0.1:28888");
+
         Map<String, ServerEntity> map = new HashMap<>();
         map.put("book-manager",bookManager);
+        map.put("craw-manager",crawManager);
         return map;
     }
 

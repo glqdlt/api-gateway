@@ -1,20 +1,20 @@
 package com.glqdlt.myhome.apigateway.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class BookRestService {
-
+public class RestDeliveryService {
 
     private final String bookServerUrl;
+    private final String crawServerUrl;
     private final RestTemplate restTemplate;
 
-    public BookRestService(RestTemplateBuilder restTemplateBuilder) {
+    public RestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
         this.bookServerUrl = ServerAddressService.getInstance().getServerAddress().get("book-manager").getServerUrl();
+        this.crawServerUrl = ServerAddressService.getInstance().getServerAddress().get("craw-manager").getServerUrl();
     }
 
     public RestTemplate getRestTemplate() {
@@ -34,7 +34,18 @@ public class BookRestService {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/detail/" + id, Object.class);
     }
 
-    public void writeNewBook(Object newBook){
-        this.restTemplate.put(this.bookServerUrl+"/book/write",newBook);
+    public void writeNewBook(Object newBook) {
+        this.restTemplate.put(this.bookServerUrl + "/book/write", newBook);
     }
+
+
+    public Object[] crawSearchAll() {
+        return this.restTemplate.getForObject(this.crawServerUrl + "/craw/all", Object[].class);
+    }
+
+    public Object crawSearchPage(int page) {
+        return this.restTemplate.getForObject(this.crawServerUrl + "/craw/"+page, Object.class);
+    }
+
+
 }

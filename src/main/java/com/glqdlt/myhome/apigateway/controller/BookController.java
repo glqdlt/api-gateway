@@ -1,7 +1,7 @@
 package com.glqdlt.myhome.apigateway.controller;
 
 
-import com.glqdlt.myhome.apigateway.service.BookRestService;
+import com.glqdlt.myhome.apigateway.service.RestDeliveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @CrossOrigin
 @RestController
 @RequestMapping("/book")
 public class BookController {
 
     @Autowired
-    BookRestService bookRestService;
+    RestDeliveryService bookRestService;
 
     Logger logger = LoggerFactory.getLogger(BookController.class);
 
@@ -33,10 +30,8 @@ public class BookController {
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<?>> bookDetail(@PathVariable int id) {
-
-        List<?> list = new ArrayList<>();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    public ResponseEntity<Object> bookDetail(@PathVariable int id) {
+        return new ResponseEntity<>(this.bookRestService.bookSearchDetail(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.PUT)

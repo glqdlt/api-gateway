@@ -1,26 +1,35 @@
 package com.glqdlt.myhome.apigateway.service;
 
 
-import com.glqdlt.myhome.apigateway.domain.ServerObject;
-import org.springframework.stereotype.Service;
+import com.glqdlt.myhome.apigateway.persistence.entity.ServerEntity;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
 public class ServerAddressService {
 
-    public Map<String,ServerObject> getServerAddress() {
 
-        ServerObject bookManager = new ServerObject();
+    private ServerAddressService() {
+    }
+
+    public static ServerAddressService getInstance(){
+        return LazyHolder.INSTACE;
+    }
+
+    public Map<String,ServerEntity> getServerAddress() {
+
+        ServerEntity bookManager = new ServerEntity();
         bookManager.setServerName("book-manager");
-        bookManager.setServerUrl("http://127.0.0.1");
+        bookManager.setServerUrl("http://127.0.0.1:38080");
 
-        Map<String, ServerObject> map = new HashMap<>();
+        Map<String, ServerEntity> map = new HashMap<>();
         map.put("book-manager",bookManager);
-
         return map;
+    }
 
+    private static class LazyHolder {
+
+        public static final ServerAddressService INSTACE = new ServerAddressService();
 
     }
 }

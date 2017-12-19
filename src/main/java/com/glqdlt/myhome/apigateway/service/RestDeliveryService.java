@@ -1,26 +1,29 @@
 package com.glqdlt.myhome.apigateway.service;
 
+import com.glqdlt.myhome.apigateway.model.Token;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class RestDeliveryService {
 
     private final String bookServerUrl;
     private final String crawServerUrl;
+    private final String authServerUrl;
     private final RestTemplate restTemplate;
 
     public RestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
         this.bookServerUrl = ServerAddressService.getInstance().getServerAddress().get("book-manager").getServerUrl();
         this.crawServerUrl = ServerAddressService.getInstance().getServerAddress().get("craw-manager").getServerUrl();
+        this.authServerUrl = ServerAddressService.getInstance().getServerAddress().get("auth-manager").getServerUrl();
     }
 
-    public RestTemplate getRestTemplate() {
-        return this.restTemplate;
-    }
-
+    /* Book  Manager*/
     public Object[] bookSearchAll() {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/search/all", Object[].class
         );
@@ -39,13 +42,37 @@ public class RestDeliveryService {
     }
 
 
+    /* Craw Manager*/
     public Object[] crawSearchAll() {
         return this.restTemplate.getForObject(this.crawServerUrl + "/craw/all", Object[].class);
     }
 
     public Object crawSearchPage(int page) {
-        return this.restTemplate.getForObject(this.crawServerUrl + "/craw/"+page, Object.class);
+        return this.restTemplate.getForObject(this.crawServerUrl + "/craw/" + page, Object.class);
     }
 
+
+    /* Auth Manager */
+    // TODO 실제 Authmanager 개발, 그리고 여기의 딜리버리 로직 구현 필요.
+
+    public Object isLogin(Object loginUser) {
+//        return this.restTemplate.postForObject(this.authServerUrl+"/isLogin",Object.class);
+
+        return new Token("dummy", new Date(makeExpireDate().getTimeInMillis()), "refresh");
+    }
+
+    private Calendar makeExpireDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 7);
+        return calendar;
+    }
+
+    public Object expToken() {
+//        Object request = null;
+//        return this.restTemplate.postForEntity(this.authServerUrl + "exp", request, Object.class);
+        return 1;
+
+    }
 
 }

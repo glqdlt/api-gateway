@@ -1,6 +1,8 @@
 package com.glqdlt.myhome.apigateway.service;
 
 import com.glqdlt.myhome.apigateway.model.Token;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,16 +13,17 @@ import java.util.Date;
 @Service
 public class RestDeliveryService {
 
-    private final String bookServerUrl;
-    private final String crawServerUrl;
-    private final String authServerUrl;
+    @Value("${book-manager.url}")
+    private String bookServerUrl;
+    @Value("${craw-manager.url}")
+    private String crawServerUrl;
+    @Value("${auth-manager.url")
+    private String authServerUrl;
     private final RestTemplate restTemplate;
+
 
     public RestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
-        this.bookServerUrl = ServerAddressService.getInstance().getServerAddress().get("book-manager").getServerUrl();
-        this.crawServerUrl = ServerAddressService.getInstance().getServerAddress().get("craw-manager").getServerUrl();
-        this.authServerUrl = ServerAddressService.getInstance().getServerAddress().get("auth-manager").getServerUrl();
     }
 
     /* Book  Manager*/

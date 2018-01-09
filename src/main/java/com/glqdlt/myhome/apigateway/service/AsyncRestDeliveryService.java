@@ -2,7 +2,6 @@ package com.glqdlt.myhome.apigateway.service;
 
 import com.glqdlt.myhome.apigateway.model.Token;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Service
-public class RestDeliveryService {
+public class AsyncRestDeliveryService {
 
     @Value("${book-manager.url}")
     private String bookServerUrl;
@@ -25,7 +24,7 @@ public class RestDeliveryService {
     private final RestTemplate restTemplate;
 
 
-    public RestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
+    public AsyncRestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -63,8 +62,9 @@ public class RestDeliveryService {
 
     public Object isLogin(Object loginUser) {
 //        return this.restTemplate.postForObject(this.authServerUrl+"/isLogin",Object.class);
+
         Token token = new Gson().fromJson(loginUser.toString(), Token.class);
-        return new Token("dummy", new Date(makeExpireDate().getTimeInMillis()), "refresh", token.getUsername());
+        return new Token("dummy", new Date(makeExpireDate().getTimeInMillis()), "refresh",token.getUsername());
     }
 
     private Calendar makeExpireDate() {

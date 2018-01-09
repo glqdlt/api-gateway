@@ -17,5 +17,6 @@ public class Token {
     private String token;
     private Date exp;
     private String refresh_token;
+    private String username;
 
 }

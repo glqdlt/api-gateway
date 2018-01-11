@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
+//    TODO 현재는 Dummy token 인데, JWT , Oauth2 인증 구현 필요.
+
     Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
@@ -23,6 +25,7 @@ public class AuthController {
         return new ResponseEntity<>(Integer.parseInt(restDeliveryService.expToken().toString()), HttpStatus.OK);
     }
 
+    // TODO /isLogin 어감이 거시기한데, /isLoggedIn 이런식으로 변경
     @RequestMapping(value = "/isLogin", method = RequestMethod.POST)
     public ResponseEntity<Object> isLogin(@RequestBody Object loginUser) {
             log.info(loginUser.toString());

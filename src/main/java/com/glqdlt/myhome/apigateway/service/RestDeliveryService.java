@@ -49,6 +49,7 @@ public class RestDeliveryService {
 
     public void bookUpdate(int id, Object bookEntity) {this.restTemplate.put(this.bookServerUrl+"/book/update/"+id,bookEntity);}
 
+    public void removeBook (int id){this.restTemplate.delete(this.bookServerUrl+"/book/remove/"+id);}
 
     /* Craw Manager*/
     public Object[] crawSearchAll() {

@@ -41,4 +41,11 @@ public class BookController {
         return new ResponseEntity<>(1, HttpStatus.OK);
     }
 
+    @RequestMapping(value ="update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Integer> bookUpdate(@PathVariable int id, @RequestBody Object bookEntity){
+        this.bookRestService.bookUpdate(id,bookEntity);
+        return new ResponseEntity<>(1,HttpStatus.OK);
+
+    }
+
 }

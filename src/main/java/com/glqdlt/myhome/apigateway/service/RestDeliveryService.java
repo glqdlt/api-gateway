@@ -47,6 +47,8 @@ public class RestDeliveryService {
         this.restTemplate.put(this.bookServerUrl + "/book/write", newBook);
     }
 
+    public void bookUpdate(int id, Object bookEntity) {this.restTemplate.put(this.bookServerUrl+"/book/update/"+id,bookEntity);}
+
 
     /* Craw Manager*/
     public Object[] crawSearchAll() {

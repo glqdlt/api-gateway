@@ -19,6 +19,10 @@ public class BookController {
 
     Logger logger = LoggerFactory.getLogger(BookController.class);
 
+
+    @RequestMapping(value ="/tag/all",method=RequestMethod.GET)
+    public ResponseEntity<Object[]> bookTagAll() {return new ResponseEntity<>(bookRestService.bookTagAll(), HttpStatus.OK);}
+
     @RequestMapping(value = "/search/all", method = RequestMethod.GET)
     public ResponseEntity<Object[]> bookSearch() {
         return new ResponseEntity<>(bookRestService.bookSearchAll(), HttpStatus.OK);

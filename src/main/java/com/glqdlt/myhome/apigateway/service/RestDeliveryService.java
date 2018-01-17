@@ -20,9 +20,18 @@ public class RestDeliveryService {
     @Value("${craw-manager.url}")
     private String crawServerUrl;
 
+    @Value("${server-manager.url}")
+    private String serverServerUrl;
+
     @Value("${auth-manager.url")
     private String authServerUrl;
+
+
     private final RestTemplate restTemplate;
+
+    public Object[] serverSearchAll() {
+        return this.restTemplate.getForObject(this.serverServerUrl + "/server/search/all", Object[].class);
+    }
 
 
     public RestDeliveryService(RestTemplateBuilder restTemplateBuilder) {
@@ -34,6 +43,12 @@ public class RestDeliveryService {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/search/all", Object[].class
         );
     }
+
+    public Object[] bookTagAll() {
+        return this.restTemplate.getForObject(this.bookServerUrl + "/book/tag/all", Object[].class
+        );
+    }
+
 
     public Object bookSearchPage(int page) {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/search/" + page, Object.class);
@@ -47,9 +62,13 @@ public class RestDeliveryService {
         this.restTemplate.put(this.bookServerUrl + "/book/write", newBook);
     }
 
-    public void bookUpdate(int id, Object bookEntity) {this.restTemplate.put(this.bookServerUrl+"/book/update/"+id,bookEntity);}
+    public void bookUpdate(int id, Object bookEntity) {
+        this.restTemplate.put(this.bookServerUrl + "/book/update/" + id, bookEntity);
+    }
 
-    public void removeBook (int id){this.restTemplate.delete(this.bookServerUrl+"/book/remove/"+id);}
+    public void removeBook(int id) {
+        this.restTemplate.delete(this.bookServerUrl + "/book/remove/" + id);
+    }
 
     /* Craw Manager*/
     public Object[] crawSearchAll() {

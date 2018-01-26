@@ -51,6 +51,10 @@ public class RestDeliveryService {
         );
     }
 
+    public Object bookSearchTagAll(){
+        return this.restTemplate.getForObject(this.bookServerUrl+"/book/search/tags/all",Object.class);
+    }
+
     public ResponseEntity<ByteArrayResource> bookDownload(int id){
         return this.restTemplate.getForEntity(this.bookServerUrl+"/book/download/"+id,ByteArrayResource.class);
     }

@@ -63,5 +63,10 @@ public class BookController {
         return this.bookRestService.bookDownload(id);
     }
 
+    @RequestMapping(value="/search/tags/all",method = RequestMethod.GET)
+    public ResponseEntity<Object> bookSearchAll(){
+        return  new ResponseEntity<>(this.bookRestService.bookSearchTagAll(),HttpStatus.OK);
+    }
+
 
 }

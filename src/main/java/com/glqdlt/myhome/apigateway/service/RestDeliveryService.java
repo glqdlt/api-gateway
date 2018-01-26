@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,6 +51,9 @@ public class RestDeliveryService {
         );
     }
 
+    public ResponseEntity<ByteArrayResource> bookDownload(int id){
+        return this.restTemplate.getForEntity(this.bookServerUrl+"/book/download/"+id,ByteArrayResource.class);
+    }
 
     public Object bookSearchPage(int page) {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/search/" + page, Object.class);

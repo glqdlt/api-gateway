@@ -5,6 +5,7 @@ import com.glqdlt.myhome.apigateway.service.RestDeliveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,11 @@ public class BookController {
         this.bookRestService.removeBook(id);
         return new ResponseEntity<>(1,HttpStatus.OK);
     }
+
+    @RequestMapping(value="/download/{id}",method = RequestMethod.GET)
+    public ResponseEntity<ByteArrayResource> bookDownload(@PathVariable int id){
+        return this.bookRestService.bookDownload(id);
+    }
+
 
 }

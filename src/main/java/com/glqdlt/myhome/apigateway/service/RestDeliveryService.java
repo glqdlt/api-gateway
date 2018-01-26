@@ -67,6 +67,10 @@ public class RestDeliveryService {
         return this.restTemplate.getForObject(this.bookServerUrl + "/book/detail/" + id, Object.class);
     }
 
+    public Object[] bookSearchBySubject(String subject){
+        return this.restTemplate.getForObject(this.bookServerUrl+"/book/search/subject/"+subject,Object[].class);
+    }
+
     public void writeNewBook(Object newBook) {
         this.restTemplate.put(this.bookServerUrl + "/book/write", newBook);
     }

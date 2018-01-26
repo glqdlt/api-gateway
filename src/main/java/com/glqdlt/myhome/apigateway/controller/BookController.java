@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.Subject;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/book")
@@ -66,6 +68,11 @@ public class BookController {
     @RequestMapping(value="/search/tags/all",method = RequestMethod.GET)
     public ResponseEntity<Object> bookSearchAll(){
         return  new ResponseEntity<>(this.bookRestService.bookSearchTagAll(),HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/search/subject/{subject}",method=RequestMethod.GET)
+    public ResponseEntity<Object[]> bookSearchBySubject(@PathVariable String subject){
+        return new ResponseEntity<>(this.bookRestService.bookSearchBySubject(subject),HttpStatus.OK);
     }
 
 
